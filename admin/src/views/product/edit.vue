@@ -1,21 +1,26 @@
 <template>
   <div class="pro">
     <h1 class="fn-l">{{id?'编辑':'新建'}}项目</h1>
-    <el-form ref="form" label-width="80px" @submit.native.prevent="save">
-      <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+    <!-- <el-form ref="form" :rules="rules" label-width="80px" @submit.native.prevent="save"> -->
+    <el-form ref="form" :rules="rules" label-width="80px" :model="form">
+      <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="基本信息" name="first">
-          <el-form-item label="项目名称">
+          <el-form-item label="项目名称" prop="name">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="项目地址">
+          <el-form-item label="项目地址" prop="address">
             <el-input v-model="form.address"></el-input>
           </el-form-item>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="楼盘状态">
+              <el-form-item label="楼盘状态" prop="proStatus">
                 <el-select v-model="form.proStatus" placeholder="请选择状态">
-                  <el-option label="区域一" value="shanghai"></el-option>
-                  <el-option label="区域二" value="beijing"></el-option>
+                  <el-option
+                    v-for="item in state"
+                    :key="item._id"
+                    :label="item.name"
+                    :value="item.name"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -40,7 +45,7 @@
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="产权年限">
+              <el-form-item label="产权年限" prop="years">
                 <el-input type="number" v-model="form.years"></el-input>
               </el-form-item>
             </el-col>
@@ -69,15 +74,19 @@
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="开发商">
+              <el-form-item label="开发商" prop="developers">
                 <el-input v-model="form.developers"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="产品类型">
-                <el-select v-model="form.proType" placeholder="请选择类型">
-                  <el-option label="区域一" value="shanghai"></el-option>
-                  <el-option label="区域二" value="beijing"></el-option>
+              <el-form-item label="产品类型" prop="proType">
+                <el-select v-model="form.proType" placeholder="请选择类型" multiple>
+                  <el-option
+                    v-for="item in proTypes"
+                    :key="item._id"
+                    :label="item.name"
+                    :value="item._id"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -109,7 +118,14 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="物业类型">
-                <el-input v-model="form.propertyType"></el-input>
+                <el-select v-model="form.propertyType" placeholder="请选择物业类型" multiple>
+                  <el-option
+                    v-for="item in propertyTypes"
+                    :key="item._id"
+                    :label="item.name"
+                    :value="item._id"
+                  ></el-option>
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -121,30 +137,33 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="物业费用">
-                <el-input type="number" v-model="form.propertyFee"></el-input>
+                <el-input v-model="form.propertyFee"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
         </el-tab-pane>
         <!--=============== 户型管理 ===================-->
         <el-tab-pane label="户型管理" name="second">
-          <!-- <el-button size="small" @click="model.second.push({})">
-          <i class="el-icon-plus"></i>
-          添加技能
-          </el-button>-->
-          <el-row>
+          <el-button size="small" @click="form.house.push({})">
+            <i class="el-icon-plus"></i>
+            添加户型
+          </el-button>
+          <el-row style="margin-top:20px" v-for="(item, i) in form.house" :key="i">
             <el-col>
               <el-form-item label="户型">
-                <el-input v-model="form.apartment"></el-input>
+                <el-input v-model="item.apartment"></el-input>
               </el-form-item>
             </el-col>
             <el-col>
               <el-form-item label="户型图">
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :action="uploadUrl"
                   list-type="picture-card"
                   :on-preview="handlePictureCardPreview"
                   :on-remove="handleRemove"
+                  multiple
+                  :file-list="item.proImg"
+                  :on-success="afterUpload"
                 >
                   <i class="el-icon-plus"></i>
                 </el-upload>
@@ -160,7 +179,7 @@
       </el-tabs>
 
       <el-form-item>
-        <el-button type="primary" native-type="submit">{{id?'编辑保存':'立即新建'}}</el-button>
+        <el-button type="primary" native-type="submit" @click="save('form')">{{id?'编辑保存':'立即新建'}}</el-button>
         <el-button @click="$router.push('/product/list')">取消</el-button>
       </el-form-item>
     </el-form>
@@ -170,61 +189,108 @@
 </style>
 <script>
 export default {
-  props:{
-    id:{}
+  props: {
+    id: {}
   },
   data() {
     return {
-      activeName: "first",
+      activeName: "second",
       form: {
-        // name: "",
-        // region: "",
-        // date1: "",
-        // date2: "",
-        // delivery: false,
-        // type: [],
-        // resource: "",
-        // desc: ""
+        name: "",
+        house: [
+          {
+            apartment: "",
+            proImg: [],
+            fileLists: []
+          }
+        ]
       },
       dialogImageUrl: "",
-      dialogVisible: false
+      imageItem: [],
+      dialogVisible: false,
+      fileitems: [],
+      state: [],
+      proTypes: [],
+      propertyTypes: [],
+      rules: {
+        name: [{ required: true, message: "请输入项目名称", trigger: "blur" }],
+        address: [
+          { required: true, message: "请输入项目地址", trigger: "blur" }
+        ],
+        proStatus: [
+          { required: true, message: "请输入项目状态", trigger: "blur" }
+        ],
+        proType: [
+          { required: true, message: "请输入项目类型", trigger: "blur" }
+        ],
+        developers: [
+          { required: true, message: "请输入开发商", trigger: "blur" }
+        ]
+      }
     };
   },
   methods: {
-    async save() {
-      if(this.id){
-        await this.$http.put(`rest/products/${this.id}`, this.form);
-      }else{
-        await this.$http.post("rest/products", this.form);
-      }
-      
-      this.$message({
-        type: "success",
-        message: "创建成功"
-      });
-      this.$router.push("/product/list");
-    },
+    // 上传成功
+    async afterUpload(response,file,fileList) {
+      // this.form.house.map(v => {
+      //   this.$set(v, "fileLists", fileList);
+      // });
 
-    handleClick(tab, event) {
-      console.log(tab, event);
+      console.log(fileList);
     },
-    onSubmit() {
-      console.log("submit!");
-    },
-    handleRemove(file, fileList) {
+    // 移除上传文件
+    async handleRemove(file, fileList) {
       console.log(file, fileList);
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
-    async fetch(){
-      const res = await this.$http.get(`rest/products/${this.id}`)
-      this.form = res.data
+    async save(v) {
+      this.$refs[v].validate(async valid => {
+        if (valid) {
+          if (this.id) {
+            //图片数组重新赋值
+            await this.form.house.map(v => {
+              this.$set(v, "proImg", v.fileLists);
+            });
+            await this.$http.put(`rest/products/${this.id}`, this.form);
+          } else {
+            await this.$http.post("rest/products", this.form);
+          }
+          this.$message({
+            type: "success",
+            message: "创建成功"
+          });
+          this.$router.push("/product/list");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    async fetch() {
+      const res = await this.$http.get(`rest/products/${this.id}`);
+      this.form = res.data;
+    },
+    async fetchState() {
+      const res = await this.$http.get(`rest/productStates`);
+      this.state = res.data;
+    },
+    async fetchType() {
+      const res = await this.$http.get(`rest/productTypes`);
+      this.proTypes = res.data;
+    },
+    async fetchpropertyType() {
+      const res = await this.$http.get(`rest/propertyTypes`);
+      this.propertyTypes = res.data;
     }
   },
-  created(){
-    this.id && this.fetch()
+  created() {
+    this.fetchState();
+    this.fetchType();
+    this.fetchpropertyType();
+    this.id && this.fetch();
   }
 };
 </script>

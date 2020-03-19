@@ -9,13 +9,18 @@
       </el-col>
     </el-row>
     <el-table :data="tableData" style="margin-top:10px;">
-      <el-table-column prop="name" label="项目名称" width="240"></el-table-column>
-      <el-table-column prop="address" label="地址" width="320"></el-table-column>
-      <el-table-column prop="type" label="项目类型"></el-table-column>
+      <el-table-column prop="name" label="项目名称" width="200"></el-table-column>
+      <el-table-column prop="address" label="地址" width="180"></el-table-column>
+      <el-table-column prop="proType" label="项目类型"></el-table-column>
       <el-table-column prop="proStatus" label="项目状态"></el-table-column>
+      <el-table-column prop="developers" label="开发商"></el-table-column>
+      <el-table-column prop="proImg" label="封图">
+        <template slot-scope="scope">
+					<img :src="scope.row.avatar" style="height: 3rem;" />
+				</template>
+      </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
           <el-button type="text" size="small" @click="$router.push(`/product/edit/${scope.row._id}`)">编辑</el-button>
           <el-button type="text" size="small" @click="remove(scope.row)">删除</el-button>
         </template>

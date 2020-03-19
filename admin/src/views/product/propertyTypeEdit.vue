@@ -1,6 +1,6 @@
 <template>
   <div class="pro">
-    <h1>{{ id ? '编辑' : '新建' }}项目类型</h1>
+    <h1>{{ id ? '编辑' : '新建' }}物业类型</h1>
     <el-form label-width="80px" @submit.native.prevent="save">
       <el-form-item label="名称">
         <el-input v-model="model.name"></el-input>
@@ -26,19 +26,19 @@ export default {
   methods: {
     async save() {
       if (this.id) {
-        await this.$http.put(`rest/productTypes/${this.id}`, this.model);
+        await this.$http.put(`rest/propertyTypes/${this.id}`, this.model);
       } else {
-        await this.$http.post("rest/productTypes", this.model);
+        await this.$http.post("rest/propertyTypes", this.model);
       }
 
-      this.$router.push("/product/type");
+      this.$router.push("/product/propertyType");
       this.$message({
         type: "success",
         message: "保存成功"
       });
     },
     async fetch() {
-      const res = await this.$http.get(`rest/productTypes/${this.id}`);
+      const res = await this.$http.get(`rest/propertyTypes/${this.id}`);
       this.model = res.data;
     }
   },

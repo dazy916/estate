@@ -7,9 +7,16 @@
             <i class="el-icon-message"></i>内容管理
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/product/list">项目列表</el-menu-item>
-            <el-menu-item index="/product/type">项目类别</el-menu-item>
-            <el-menu-item index="/prodauct/status">项目状态</el-menu-item>
+            <template slot="title">项目管理</template>
+            <el-menu-item index="/product/list">项目管理</el-menu-item>
+            <el-menu-item index="/product/type">项目类型管理</el-menu-item>
+            <el-menu-item index="/product/state">项目状态管理</el-menu-item>
+            <el-menu-item index="/product/propertyType">物业类型管理</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+            <template slot="title">文章管理</template>
+            <el-menu-item index="/article/list">文章管理</el-menu-item>
+            <el-menu-item index="/category/list">分类管理</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">
@@ -17,19 +24,17 @@
             <i class="el-icon-menu"></i>运营管理
           </template>
           <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
+            <template slot="title">广告</template>
+            <el-menu-item index="2-1">广告管理</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="3">
           <template slot="title">
-            <i class="el-icon-setting"></i>导航三
+            <i class="el-icon-setting"></i>系统管理
           </template>
           <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="3-1">选项1</el-menu-item>
-            <el-menu-item index="3-2">选项2</el-menu-item>
+            <template slot="title">用户</template>
+            <el-menu-item index="/user/list">用户管理</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

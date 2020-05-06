@@ -5,7 +5,7 @@ const schema = new mongoose.Schema({
         type: String
     },
     categories: [{
-        type: mongoose.SchemaTypes.ObjectId,
+        type: mongoose.SchemaTypes.Object,
         ref: 'Category'
     }],
     body: {

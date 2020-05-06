@@ -3,7 +3,7 @@
     <h1 class="fn-l">{{id?'编辑':'新建'}}项目</h1>
     <!-- <el-form ref="form" :rules="rules" label-width="80px" @submit.native.prevent="save"> -->
     <el-form ref="form" :rules="rules" label-width="80px" :model="form">
-      <el-tabs v-model="activeName" type="card">
+      <el-tabs v-model="activeName" type="border-card">
         <el-tab-pane label="基本信息" name="first">
           <el-form-item label="项目名称" prop="name">
             <el-input v-model="form.name"></el-input>
@@ -11,7 +11,7 @@
           <el-form-item label="项目地址" prop="address">
             <el-input v-model="form.address"></el-input>
           </el-form-item>
-          <el-row>
+          <el-row :gutter="20">
             <el-col :span="12">
               <el-form-item label="楼盘状态" prop="proStatus">
                 <el-select v-model="form.proStatus" placeholder="请选择状态">
@@ -31,7 +31,7 @@
             </el-col>
           </el-row>
 
-          <el-row>
+          <el-row :gutter="20">
             <el-col :span="12">
               <el-form-item label="占地面积">
                 <el-input type="number" v-model="form.aere"></el-input>
@@ -43,7 +43,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="20">
             <el-col :span="12">
               <el-form-item label="产权年限" prop="years">
                 <el-input type="number" v-model="form.years"></el-input>
@@ -60,7 +60,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="20">
             <el-col :span="12">
               <el-form-item label="售楼地址">
                 <el-input v-model="form.saleAddress"></el-input>
@@ -72,7 +72,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="20">
             <el-col :span="12">
               <el-form-item label="开发商" prop="developers">
                 <el-input v-model="form.developers"></el-input>
@@ -91,7 +91,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="20">
             <el-col :span="12">
               <el-form-item label="车位数量">
                 <el-input v-model="form.parking"></el-input>
@@ -103,7 +103,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="20">
             <el-col :span="12">
               <el-form-item label="绿化率">
                 <el-input v-model="form.greenRatio"></el-input>
@@ -115,7 +115,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="20">
             <el-col :span="12">
               <el-form-item label="物业类型">
                 <el-select v-model="form.propertyType" placeholder="请选择物业类型" multiple>
@@ -144,32 +144,39 @@
         </el-tab-pane>
         <!--=============== 户型管理 ===================-->
         <el-tab-pane label="户型管理" name="second">
-          <el-button size="small" @click="form.house.push({})">
+          <el-button size="small" @click="form.house.push({proImg:[],fileLists:[]})">
             <i class="el-icon-plus"></i>
             添加户型
           </el-button>
-          <el-row style="margin-top:20px" v-for="(item, i) in form.house" :key="i">
-            <el-col>
+          <el-row :gutter="20" style="margin-top:20px">
+            <el-col :span="12" v-for="(item, i) in form.house" :key="i">
               <el-form-item label="户型">
                 <el-input v-model="item.apartment"></el-input>
               </el-form-item>
-            </el-col>
-            <el-col>
               <el-form-item label="户型图">
                 <el-upload
-                  :action="uploadUrl"
                   list-type="picture-card"
+                  :action="uploadUrl"
+                  :headers="getAuthHeaders()"
                   :on-preview="handlePictureCardPreview"
                   :on-remove="handleRemove"
                   multiple
                   :file-list="item.proImg"
-                  :on-success="afterUpload"
+                  :on-success="res=>{
+                       res.map(val => { 
+                         item.fileLists.push({ url: val.url })
+                         $set(item,'fileLists',item.fileLists)
+                    })
+                  }"
                 >
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <el-dialog :visible.sync="dialogVisible">
                   <img width="100%" :src="dialogImageUrl" alt />
                 </el-dialog>
+              </el-form-item>
+              <el-form-item style="margin-top: 1rem;">
+                <el-button type="danger" @click="form.house.splice(i, 1)">删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -178,15 +185,43 @@
         <el-tab-pane label="周边情况" name="third"></el-tab-pane>
       </el-tabs>
 
-      <el-form-item>
+      <el-form-item style="margin-top:20px;text-align:center">
         <el-button type="primary" native-type="submit" @click="save('form')">{{id?'编辑保存':'立即新建'}}</el-button>
         <el-button @click="$router.push('/product/list')">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
-<style scoped>
+<style lang="scss">
+.el-upload {
+  position: relative;
+  margin-right: 20px;
+  border-radius: 6px;
+
+  &:hover {
+    .optionitem {
+      display: inline;
+    }
+  }
+  img {
+    border-radius: 6px;
+  }
+  .optionitem {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    i {
+      margin: 0 5px;
+      color: #fff;
+    }
+  }
+}
 </style>
+
 <script>
 export default {
   props: {
@@ -194,21 +229,13 @@ export default {
   },
   data() {
     return {
-      activeName: "second",
+      activeName: "first",
       form: {
         name: "",
-        house: [
-          {
-            apartment: "",
-            proImg: [],
-            fileLists: []
-          }
-        ]
+        house: []
       },
       dialogImageUrl: "",
-      imageItem: [],
       dialogVisible: false,
-      fileitems: [],
       state: [],
       proTypes: [],
       propertyTypes: [],
@@ -230,33 +257,38 @@ export default {
     };
   },
   methods: {
-    // 上传成功
-    async afterUpload(response,file,fileList) {
-      // this.form.house.map(v => {
-      //   this.$set(v, "fileLists", fileList);
-      // });
-
-      console.log(fileList);
-    },
     // 移除上传文件
-    async handleRemove(file, fileList) {
-      console.log(file, fileList);
+    async handleRemove(file) {
+      this.form.house.map(i => {
+        i.proImg.map((v, index) => {
+          if (v.url === file.url) {
+            i.proImg.splice(index, 1);
+            this.$set(i, "fileLists", i.proImg);
+          }
+        });
+      });
     },
-    handlePictureCardPreview(file) {
+    // 点击查看大图
+    async handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
     async save(v) {
+      let that = this;
       this.$refs[v].validate(async valid => {
         if (valid) {
-          if (this.id) {
+          if (that.id) {
             //图片数组重新赋值
-            await this.form.house.map(v => {
-              this.$set(v, "proImg", v.fileLists);
+            await that.form.house.map(v => {
+              that.$set(v, "proImg", v.fileLists);
             });
-            await this.$http.put(`rest/products/${this.id}`, this.form);
+            await that.$http.put(`rest/products/${that.id}`, that.form);
           } else {
-            await this.$http.post("rest/products", this.form);
+            //图片数组重新赋值
+            await that.form.house.map(v => {
+              that.$set(v, "proImg", v.fileLists);
+            });
+            await that.$http.post("rest/products", that.form);
           }
           this.$message({
             type: "success",
@@ -264,7 +296,12 @@ export default {
           });
           this.$router.push("/product/list");
         } else {
-          console.log("error submit!!");
+          this.$message({
+            type:"error",
+            message:"请填写基本信息！"
+          })
+          this.activeName="first"
+          
           return false;
         }
       });

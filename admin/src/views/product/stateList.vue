@@ -8,8 +8,8 @@
       </el-col>
     </el-row>
     <el-table :data="tableData" style="margin-top:10px;">
-      <el-table-column prop="name" label="项目状态名称" width="240"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column prop="name" label="项目状态名称"></el-table-column>
+      <el-table-column label="操作" width="140">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="$router.push(`/product/stateEdit/${scope.row._id}`)">编辑</el-button>
           <el-button type="text" size="small" @click="remove(scope.row)">删除</el-button>

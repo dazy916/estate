@@ -15,10 +15,14 @@ import CategoryList from '../views/category/list.vue'
 import CategoryEdit from '../views/category/edit.vue'
 import UserList from '../views/user/list.vue'
 import UserEdit from '../views/user/edit.vue'
+import AdList from '../views/ad/list.vue'
+import AdEdit from '../views/ad/edit.vue'
+import Login from '../views/login.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  { path: '/login', name: 'Login', component: Login, meta: { isPublice: true } },
   {
     path: '/',
     name: 'Home',
@@ -36,21 +40,25 @@ const routes = [
       { path: '/product/stateCreate', component: ProStateEdit },
       { path: '/product/stateEdit/:id', component: ProStateEdit, props: true },
       // 物业状态
-      { path: '/product/propertyType',  component: propertyTypeList, },
+      { path: '/product/propertyType', component: propertyTypeList, },
       { path: '/product/propertyTypeCreate', component: propertyTypeEdit },
       { path: '/product/propertyTypeEdit/:id', component: propertyTypeEdit, props: true },
       // 文章
-      { path: '/article/list',  component: ArticleList, },
+      { path: '/article/list', component: ArticleList, },
       { path: '/article/Create', component: ArticleEdit },
       { path: '/article/edit/:id', component: ArticleEdit, props: true },
       // 分类
-      { path: '/category/list',  component: CategoryList, },
+      { path: '/category/list', component: CategoryList, },
       { path: '/category/create', component: CategoryEdit },
       { path: '/category/edit/:id', component: CategoryEdit, props: true },
       // 用户
-      { path: '/user/list',  component: UserList, },
+      { path: '/user/list', component: UserList, },
       { path: '/user/create', component: UserEdit },
       { path: '/user/edit/:id', component: UserEdit, props: true },
+      // 广告
+      { path: '/ad/list', component: AdList, },
+      { path: '/ad/create', component: AdEdit },
+      { path: '/ad/edit/:id', component: AdEdit, props: true },
 
     ]
   }
@@ -60,5 +68,11 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
+// 路由守卫
+router.beforeEach((to,from,next)=>{
+  if(!to.meta.isPublice && !localStorage.token){
+    return next('./login')
+  }
+  next()
+})
 export default router

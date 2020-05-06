@@ -9,7 +9,8 @@
     </el-row>
     <el-table :data="tableData" style="margin-top:10px;">
       <el-table-column prop="title" label="文章名称"></el-table-column>
-      <el-table-column label="操作" width="240">
+      <el-table-column prop="categories" label="分类"></el-table-column>
+      <el-table-column label="操作" width="140">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="$router.push(`/article/edit/${scope.row._id}`)">编辑</el-button>
           <el-button type="text" size="small" @click="remove(scope.row)">删除</el-button>

@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100vh; ">
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu router :default-openeds="['1', '3']">
+    <el-aside width="200px" style="background-color:rgb(4, 48, 97)">
+      <el-menu router :default-openeds="['1', '2','3']" unique-opened :default-active="$route.path">
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-message"></i>内容管理
@@ -25,7 +25,7 @@
           </template>
           <el-menu-item-group>
             <template slot="title">广告</template>
-            <el-menu-item index="2-1">广告管理</el-menu-item>
+            <el-menu-item index="/ad/list">广告管理</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="3">
@@ -42,20 +42,19 @@
 
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
-        <el-dropdown>
+        <el-dropdown @command="handleCommand">
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>查看</el-dropdown-item>
             <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item>退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>王小虎</span>
+        <span>{{user}}</span>
       </el-header>
 
       <el-main>
         <router-view :key="$route.path"></router-view>
-        <!--  -->
       </el-main>
     </el-container>
   </el-container>
@@ -66,23 +65,44 @@
   color: #333;
   line-height: 60px;
 }
-
+.el-menu-item,.el-submenu__title{
+color: #fff;
+}
+.el-menu-item:hover{
+  color: #303133;
+}
+.el-menu{
+  background: none;
+}
 .el-aside {
-  color: #333;
+  color: #fff;
 }
 </style>
 
 <script>
 export default {
   data() {
-    const item = {
-      date: "2016-05-02",
-      name: "王小虎",
-      address: "上海市普陀区金沙江路 1518 弄"
-    };
+    
     return {
-      tableData: Array(20).fill(item)
+      user:""
     };
+  },
+  methods:{
+    async fetch(){
+      this.user =await localStorage.auth
+    },
+    async handleCommand(){
+      localStorage.removeItem('token')
+      localStorage.removeItem('auth')
+      this.$message({
+				type:'success',
+				message:'已退出'
+			})
+      this.$router.push('/login')
+    }
+  },
+  created(){
+    this.fetch()
   }
 };
 </script>

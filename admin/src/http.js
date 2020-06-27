@@ -5,7 +5,7 @@ import router from './router'
 const http = axios.create({
     baseURL: 'http://localhost:4000/admin/api'
 })
-
+// 请求头设置
 http.interceptors.request.use(function(config) {
 	if(localStorage.token){
 		config.headers.Authorization = 'Bearer ' + (localStorage.token || '')

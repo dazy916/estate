@@ -12,7 +12,10 @@
             </a>
           </van-col>
           <van-col>
-            <a href="http://j.map.baidu.com/29/Kj8">
+            <!-- <a href="http://j.map.baidu.com/29/Kj8"> -->
+            <a
+              href="https://map.baidu.com/poi/%E5%BD%AD%E5%B7%9E%E4%B8%87%E8%BE%BE%E5%B9%BF%E5%9C%BA%E8%90%A5%E9%94%80%E4%B8%AD%E5%BF%83/@11573795.195,3611603.14,19z?uid=efe7fe8242e04011afcb6687&ugc_type=3&ugc_ver=1&device_ratio=1&compat=1&querytype=detailConInfo&da_src=shareurl"
+            >
               <van-icon name="location-o" />
             </a>
           </van-col>

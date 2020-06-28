@@ -1,6 +1,6 @@
 <template>
   <div class="location">
-    <van-swipe style="top:0;bottom:0;position:absolute;z-index:9;" vertical>
+    <van-swipe style="top:0;bottom:0;position:absolute;z-index:9;" vertical @change="onChange">
       <van-swipe-item>
         <img src="./../assets/jt.png" width="100%" height="100%" />
       </van-swipe-item>
@@ -14,13 +14,18 @@
         <img src="./../assets/yl.png" width="100%" height="100%" />
       </van-swipe-item>
       <template #indicator>
-        <div class="qwnav">
+        <div class="qwnav custom-indicator">
           <van-row type="flex" gutter="10" class="subnav">
-            <van-col @click="show=1">交通配套{{ current + 1 }}</van-col>
-            <van-col @click="show=2">市政配套</van-col>
-            <van-col @click="show=3">教育配套</van-col>
-            <van-col @click="show=4">医疗配套</van-col>
-            <van-col @click="show=5">休闲配套</van-col>
+            <van-col>交通配套{{ current + 1 }}</van-col>
+            <van-col>市政配套</van-col>
+            <van-col>教育配套</van-col>
+            <van-col>医疗配套</van-col>
+            <van-col>休闲配套</van-col>
+            <!-- <van-col @click="current=0">交通配套{{ current + 1 }}</van-col>
+            <van-col @click="current=1">市政配套</van-col>
+            <van-col @click="current=2">教育配套</van-col>
+            <van-col @click="current=3">医疗配套</van-col>
+            <van-col @click="current=4">休闲配套</van-col>-->
           </van-row>
         </div>
         <!-- <div class="custom-indicator">{{ current + 1 }}/4</div> -->
@@ -36,11 +41,18 @@
   </div>
 </template>
 <script>
+import { Toast } from "vant";
 export default {
   data() {
     return {
-      show: 0
+      show: 0,
+      current: null
     };
+  },
+  methods: {
+    onChange(index) {
+      Toast("当前 Swipe 索引：" + index);
+    }
   }
 };
 </script>

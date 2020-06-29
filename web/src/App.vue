@@ -24,19 +24,19 @@
     </van-row>
     <router-view :key="$route.path" class="mainbox" />
     <van-tabbar v-model="active">
-      <van-tabbar-item icon="home-o">
+      <van-tabbar-item icon="photo-o">
         <router-link to="/">全景鸟瞰</router-link>
       </van-tabbar-item>
-      <van-tabbar-item icon="search">
+      <van-tabbar-item icon="flower-o">
         <router-link to="/gardens">园林漫游</router-link>
       </van-tabbar-item>
-      <van-tabbar-item icon="friends-o">
+      <van-tabbar-item icon="logistics">
         <router-link to="/location">区位交通</router-link>
       </van-tabbar-item>
-      <van-tabbar-item icon="setting-o">
+      <van-tabbar-item icon="wap-home-o">
         <router-link to="/door">户型鉴赏</router-link>
       </van-tabbar-item>
-      <van-tabbar-item icon="setting-o">
+      <van-tabbar-item icon="comment-circle-o">
         <router-link to="/">版权声明</router-link>
       </van-tabbar-item>
     </van-tabbar>
@@ -105,14 +105,23 @@ export default {
   }
 }
 .van-tabbar {
-  color: #000;
+  // height: 60px !important;
+  background-color: #333 !important;
+  color: #ccc !important;
   a {
-    color: #000;
+    color: #ccc;
+  }
+  .van-tabbar-item {
+    color: #ccc;
   }
 }
 .van-tabbar-item--active {
+  .van-tabbar-item {
+    color: rgb(245, 228, 202) !important;
+  }
+  color: rgb(245, 228, 202) !important;
   a {
-    color: #1989fa;
+    color: rgb(245, 228, 202);
   }
 }
 </style>

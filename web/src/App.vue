@@ -28,7 +28,7 @@
         <router-link to="/">全景鸟瞰</router-link>
       </van-tabbar-item>
       <van-tabbar-item icon="flower-o">
-        <router-link to="/gardens">园林漫游</router-link>
+        <router-link to="/">园林漫游</router-link>
       </van-tabbar-item>
       <van-tabbar-item icon="logistics">
         <router-link to="/location">区位交通</router-link>

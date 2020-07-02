@@ -1,5 +1,5 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <van-empty description="精彩稍后继续。。。" />
   </div>
 </template>

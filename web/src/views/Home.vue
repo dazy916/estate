@@ -1,6 +1,5 @@
 <template>
-  <div class="home">
-  </div>
+  <div class="home"></div>
 </template>
 
 <script>
@@ -9,10 +8,12 @@
 export default {};
 </script>
 <style lang="scss" scoped>
-.home{
+.home {
+  position: absolute;
+  top: 2.6rem;
+  bottom: 0;
   width: 100%;
-  height: 100%;
-  background-image: url('./../assets/west.jpg');
+  background-image: url("./../assets/west.jpg");
   background-size: cover;
   background-position: center;
 }

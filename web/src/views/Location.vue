@@ -2,39 +2,60 @@
   <div class="location">
     <van-swipe
       ref="swiper"
-      style="top:0;bottom:0;position:absolute;z-index:9;"
       vertical
+      style="position:absolute;top:20%;z-index:9;height:384px;width:100%"
       :show-indicators="false"
+      @change="onChange"
     >
       <van-swipe-item>
-        <img src="./../assets/jt.png" width="100%" height="100%" />
+        <div
+          class="showimg"
+          style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/jt.png);"
+        ></div>
       </van-swipe-item>
       <van-swipe-item>
-        <img src="./../assets/sz.png" width="100%" height="100%" />
+        <div
+          class="showimg"
+          style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/sz.png);"
+        ></div>
       </van-swipe-item>
       <van-swipe-item>
-        <img src="./../assets/jy.png" width="100%" height="100%" />
+        <div
+          class="showimg"
+          style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/jy.png);"
+        ></div>
       </van-swipe-item>
       <van-swipe-item>
-        <img src="./../assets/yl.png" width="100%" height="100%" />
+        <div
+          class="showimg"
+          style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/yl.png);"
+        ></div>
       </van-swipe-item>
       <van-swipe-item>
-        <img src="./../assets/xx.png" width="100%" height="100%" />
+        <div
+          class="showimg"
+          style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/xx.png);"
+        ></div>
       </van-swipe-item>
     </van-swipe>
     <div class="qwnav custom-indicator" :class="{'show':showclass}">
       <van-icon name="arrow-down" class="topicon" @click="showAll" v-if="open" />
       <van-icon name="arrow-up" class="topicon" @click="closeAll" v-else />
       <van-grid class="subnav" icon-size="20" column-num="1" :border="false">
-        <van-grid-item icon="flag-o" text="交通配套" @click="onChange(0)" />
-        <van-grid-item icon="home-o" text="市政配套" @click="onChange(1)" />
-        <van-grid-item icon="user-circle-o" text="教育配套" @click="onChange(2)" />
-        <van-grid-item icon="hotel-o" text="医疗配套" @click="onChange(3)" />
-        <van-grid-item icon="goods-collect-o" text="休闲配套" @click="onChange(4)" />
+        <van-grid-item
+          v-for="(item,index) in navList"
+          :key="index"
+          :icon="item.icon"
+          :text="item.name"
+          :class="{big:isIndex===index}"
+          @click="onChange(index)"
+        />
       </van-grid>
     </div>
-
-    <img src="./../assets/qw.png" width="100%" height="100%" />
+    <div
+      class="bg"
+      style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/qw.png);"
+    ></div>
   </div>
 </template>
 <script>
@@ -44,13 +65,37 @@ export default {
       show: 0,
       current: null,
       showclass: false,
-      open: true
+      open: true,
+      isIndex: 0,
+      navList: [
+        {
+          icon: "flag-o",
+          name: "交通配套"
+        },
+        {
+          icon: "home-o",
+          name: "市政配套"
+        },
+        {
+          icon: "user-circle-o",
+          name: "教育配套"
+        },
+        {
+          icon: "hotel-o",
+          name: "医疗配套"
+        },
+        {
+          icon: "goods-collect-o",
+          name: "休闲配套"
+        }
+      ]
     };
   },
   mounted() {},
   methods: {
     onChange(index) {
       this.$refs.swiper.swipeTo(index);
+      this.isIndex = index;
     },
     showAll() {
       this.showclass = true;
@@ -65,6 +110,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .location {
+  // background-image: url(~@/assets/qw.png);
+  // background-size: 100% 384px;
+  // background-repeat: no-repeat;
+  // background-position: center;
   background-color: #333;
 }
 .qwnav {
@@ -107,5 +156,30 @@ export default {
 .activeshow {
   z-index: 9;
   position: absolute;
+}
+.big {
+  font-weight: bold;
+  color: rgb(245, 228, 202) !important;
+  /deep/.van-grid-item__text {
+    color: rgb(245, 228, 202) !important;
+  }
+}
+.showimg {
+  width: 100%;
+  height: 384px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.bg {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  z-index: 8;
+  width: 100%;
+  height: 384px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 </style>

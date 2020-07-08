@@ -5,24 +5,42 @@
       style="top:0;bottom:0;position:absolute;z-index:9;"
       vertical
       :show-indicators="false"
+      @change="onChange"
     >
       <van-swipe-item>
-        <img src="./../assets/A1.jpg" width="100%" height="100%" />
+        <img
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.jpg"
+          width="100%"
+          height="100%"
+        />
       </van-swipe-item>
       <van-swipe-item>
-        <img src="./../assets/A2.jpg" width="100%" height="100%" />
+        <img
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.jpg"
+          width="100%"
+          height="100%"
+        />
       </van-swipe-item>
       <van-swipe-item>
-        <img src="./../assets/C1.jpg" width="100%" height="100%" />
+        <img
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.jpg"
+          width="100%"
+          height="100%"
+        />
       </van-swipe-item>
     </van-swipe>
     <div class="qwnav custom-indicator" :class="{'show':showclass}">
       <van-icon name="arrow-down" class="topicon" @click="showAll" v-if="open" />
       <van-icon name="arrow-up" class="topicon" @click="closeAll" v-else />
       <van-grid class="subnav" icon-size="20" column-num="1" :border="false">
-        <van-grid-item icon="flag-o" text="A1户型" @click="onChange(0)" />
-        <van-grid-item icon="home-o" text="A2户型" @click="onChange(1)" />
-        <van-grid-item icon="user-circle-o" text="C1户型" @click="onChange(2)" />
+        <van-grid-item
+          v-for="(item,index) in navList"
+          :key="index"
+          :icon="item.icon"
+          :text="item.name"
+          :class="{big:isIndex===index}"
+          @click="onChange(index)"
+        />
       </van-grid>
     </div>
   </div>
@@ -34,13 +52,30 @@ export default {
       show: 0,
       current: null,
       showclass: true,
-      open: false
+      open: false,
+      isIndex: 0,
+      navList: [
+        {
+          icon: "flag-o",
+          name: "A1户型"
+        },
+        {
+          icon: "home-o",
+          name: "A1户型"
+        },
+        {
+          icon: "user-circle-o",
+          name: "C1户型"
+        }
+      ]
     };
   },
   mounted() {},
   methods: {
     onChange(index) {
+      console.log(index);
       this.$refs.swiper.swipeTo(index);
+      this.isIndex = index;
     },
     showAll() {
       this.showclass = true;
@@ -97,5 +132,12 @@ export default {
 .activeshow {
   z-index: 9;
   position: absolute;
+}
+.big {
+  font-weight: bold;
+  color: rgb(245, 228, 202) !important;
+  /deep/.van-grid-item__text {
+    color: rgb(245, 228, 202) !important;
+  }
 }
 </style>

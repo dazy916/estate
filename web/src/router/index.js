@@ -24,6 +24,11 @@ const routes = [
     path: '/door',
     name: 'Door',
     component: () => import('../views/Door.vue')
+  },
+  {
+    path: '/copyright',
+    name: 'Copyright',
+    component: () => import('../views/Copyright.vue')
   }
 ]
 

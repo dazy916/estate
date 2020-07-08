@@ -28,7 +28,7 @@
         <router-link to="/">全景鸟瞰</router-link>
       </van-tabbar-item>
       <van-tabbar-item icon="flower-o">
-        <router-link to="/">园林漫游</router-link>
+        <router-link to="/gardens">园林漫游</router-link>
       </van-tabbar-item>
       <van-tabbar-item icon="logistics">
         <router-link to="/location">区位交通</router-link>
@@ -37,7 +37,7 @@
         <router-link to="/door">户型鉴赏</router-link>
       </van-tabbar-item>
       <van-tabbar-item icon="comment-circle-o">
-        <router-link to="/">版权声明</router-link>
+        <router-link to="/copyright">版权声明</router-link>
       </van-tabbar-item>
     </van-tabbar>
 
@@ -92,7 +92,7 @@ export default {
     display: inline-block;
     width: 15rem;
     height: 1.8rem;
-    background-image: url("./assets/logo.png");
+    background-image: url("https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/logo.png");
     background-size: cover;
     background-repeat: no-repeat;
   }

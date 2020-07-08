@@ -13,7 +13,7 @@ export default {};
   top: 2.6rem;
   bottom: 0;
   width: 100%;
-  background-image: url("./../assets/west.jpg");
+  background-image: url("https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/west.jpg");
   background-size: cover;
   background-position: center;
 }

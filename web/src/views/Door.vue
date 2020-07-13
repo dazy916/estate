@@ -7,32 +7,47 @@
       :show-indicators="false"
       @change="onChange"
     >
-      <van-swipe-item>
+      <van-swipe-item @click="num=1, showBox=false">
         <img
           src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.jpg"
           width="100%"
-          height="100%"
+          height="40%"
+        />
+        <img
+          class="buttompic"
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.png"
+          width="100%"
         />
       </van-swipe-item>
-      <van-swipe-item>
+      <van-swipe-item @click="num=2, showBox=false">
         <img
           src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.jpg"
           width="100%"
-          height="100%"
+          height="40%"
+        />
+        <img
+          class="buttompic"
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.png"
+          width="100%"
         />
       </van-swipe-item>
       <van-swipe-item>
         <img
           src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.jpg"
           width="100%"
-          height="100%"
+          height="40%"
+        />
+        <img
+          class="buttompic"
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.png"
+          width="100%"
         />
       </van-swipe-item>
     </van-swipe>
     <div class="qwnav custom-indicator" :class="{'show':showclass}">
-      <van-icon name="arrow-down" class="topicon" @click="showAll" v-if="open" />
-      <van-icon name="arrow-up" class="topicon" @click="closeAll" v-else />
-      <van-grid class="subnav" icon-size="20" column-num="1" :border="false">
+      <!-- <van-icon name="arrow-down" class="topicon" @click="showAll" v-if="open" />
+      <van-icon name="arrow-up" class="topicon" @click="closeAll" v-else />-->
+      <van-grid class="subnav" icon-size="20" :border="false">
         <van-grid-item
           v-for="(item,index) in navList"
           :key="index"
@@ -43,6 +58,14 @@
         />
       </van-grid>
     </div>
+    <img
+      class="buttompic"
+      src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/huxing.jpg"
+      width="100%"
+    />
+    <van-icon name="clear" class="close" @click="showBox=true, num=0" v-if="showBox===false" />
+    <iframe src="https://720yun.com/t/c4vkshp7r8b" frameborder="no" class="ifr" v-if="num===1"></iframe>
+    <iframe src="https://720yun.com/t/devksb7hppl" frameborder="no" class="ifr" v-if="num===2"></iframe>
   </div>
 </template>
 <script>
@@ -50,10 +73,12 @@ export default {
   data() {
     return {
       show: 0,
+      showBox: true,
       current: null,
       showclass: true,
       open: false,
       isIndex: 0,
+      num: 0,
       navList: [
         {
           icon: "flag-o",
@@ -94,27 +119,31 @@ export default {
 }
 .qwnav {
   z-index: 10;
-  display: flex;
-  flex-flow: column nowrap;
+  opacity: 0;
+  // display: flex;
+  // flex-flow: column nowrap;
   position: absolute;
-  top: 1rem;
+  top: 1.5rem;
   left: 1rem;
-  width: 2rem;
-  height: 2rem;
+  right: 1rem;
+  height: 3rem;
   border: 1px solid #ccc;
   border-radius: 10rem;
   background-color: rgba($color: #000000, $alpha: 0.6);
-  padding: 0.4rem;
-  &.show {
-    height: 22rem;
-    .subnav {
-      flex: 1;
-      display: inherit;
-    }
-  }
-  .subnav {
-    display: none;
-    color: #ccc;
+  padding: 0.4rem 0 0.4rem 3.5rem;
+  // &.show {
+  //   height: 3rem;
+  //   .subnav {
+  //     // flex: 1;
+  //     display: inline-block;
+  //   }
+  // }
+  // .subnav {
+  //   display: none;
+  //   color: #ccc;
+  // }
+  .van-grid-item {
+    margin: 0 0.3rem;
   }
   /deep/.van-grid-item__content {
     padding: 0;
@@ -139,5 +168,27 @@ export default {
   /deep/.van-grid-item__text {
     color: rgb(245, 228, 202) !important;
   }
+}
+.buttompic {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+  height: 70%;
+}
+.ifr {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+}
+.close {
+  z-index: 100;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: #fff;
 }
 </style>

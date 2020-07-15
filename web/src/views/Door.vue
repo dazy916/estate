@@ -2,8 +2,7 @@
   <div class="location">
     <van-swipe
       ref="swiper"
-      style="top:0;bottom:0;position:absolute;z-index:9;"
-      vertical
+      :loop="false"
       :show-indicators="false"
       @change="onChange"
     >
@@ -11,37 +10,37 @@
         <img
           src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.jpg"
           width="100%"
-          height="40%"
         />
-        <img
-          class="buttompic"
+        <div class="bottompic" style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.png)"></div>
+        <!-- <img
+          class="bottompic"
           src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.png"
           width="100%"
-        />
+        /> -->
       </van-swipe-item>
       <van-swipe-item @click="num=2, showBox=false">
         <img
           src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.jpg"
           width="100%"
-          height="40%"
         />
-        <img
-          class="buttompic"
+        <div class="bottompic" style="background-image: url('https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.png)"></div>
+        <!-- <img
+          class="bottompic"
           src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.png"
           width="100%"
-        />
+        /> -->
       </van-swipe-item>
       <van-swipe-item>
         <img
           src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.jpg"
           width="100%"
-          height="40%"
         />
-        <img
-          class="buttompic"
+        <div class="bottompic" style="background-image: url('https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.png')"></div>
+        <!-- <img
+          class="bottompic"
           src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.png"
           width="100%"
-        />
+        /> -->
       </van-swipe-item>
     </van-swipe>
     <div class="qwnav custom-indicator" :class="{'show':showclass}">
@@ -58,11 +57,7 @@
         />
       </van-grid>
     </div>
-    <img
-      class="buttompic"
-      src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/huxing.jpg"
-      width="100%"
-    />
+    <div class="bgpic" ></div>
     <van-icon name="clear" class="close" @click="showBox=true, num=0" v-if="showBox===false" />
     <iframe src="https://720yun.com/t/c4vkshp7r8b" frameborder="no" class="ifr" v-if="num===1"></iframe>
     <iframe src="https://720yun.com/t/devksb7hppl" frameborder="no" class="ifr" v-if="num===2"></iframe>
@@ -98,7 +93,6 @@ export default {
   mounted() {},
   methods: {
     onChange(index) {
-      console.log(index);
       this.$refs.swiper.swipeTo(index);
       this.isIndex = index;
     },
@@ -116,12 +110,25 @@ export default {
 <style lang="scss" scoped>
 .location {
   background-color: #333;
+  position: relative;
+  overflow: hidden;
+  top:0;
+  height: 88.6vh;
+  .van-swipe{
+    height: 100%;
+    // position: inherit;
+    // overflow: visible;
+    // overflow-x: hidden;
+    .van-swipe-item{
+      position: inherit;
+      height: 15.6rem;
+      overflow: visible;
+    }
+  }
 }
 .qwnav {
   z-index: 10;
   opacity: 0;
-  // display: flex;
-  // flex-flow: column nowrap;
   position: absolute;
   top: 1.5rem;
   left: 1rem;
@@ -157,7 +164,6 @@ export default {
     color: #ccc;
   }
 }
-
 .activeshow {
   z-index: 9;
   position: absolute;
@@ -169,15 +175,34 @@ export default {
     color: rgb(245, 228, 202) !important;
   }
 }
-.buttompic {
+.bottompic {
   position: absolute;
-  top: 30%;
+  top: 66%;
   left: 0;
   right: 0;
-  height: 70%;
+  // bottom: 0;
+  height: 100%;
+  z-index: 13;
+  // background-image: url('https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.png');
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+.bgpic{
+  z-index: 9;
+  position: absolute;
+  top: 15.6rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/huxing.jpg');
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
 }
 .ifr {
   position: absolute;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 99;

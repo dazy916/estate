@@ -1,46 +1,53 @@
 <template>
   <div class="location">
-    <van-swipe
-      ref="swiper"
-      :loop="false"
-      :show-indicators="false"
-      @change="onChange"
-    >
-      <van-swipe-item @click="num=1, showBox=false">
-        <img
-          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.jpg"
-          width="100%"
-        />
-        <div class="bottompic" style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.png)"></div>
-        <!-- <img
+    <van-swipe ref="swiper" :loop="false" :show-indicators="false" @change="onChange">
+      <van-swipe-item>
+        <div
+          class="toppic"
+          style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.jpg)"
+        ></div>
+        <!-- <img src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.jpg" /> -->
+        <div
           class="bottompic"
-          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.png"
-          width="100%"
-        /> -->
+          style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.png)"
+        >
+          <!-- <img
+            class="bottompic"
+            src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.png"
+            width="100%"
+          />-->
+        </div>
       </van-swipe-item>
       <van-swipe-item @click="num=2, showBox=false">
-        <img
-          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.jpg"
-          width="100%"
-        />
-        <div class="bottompic" style="background-image: url('https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.png)"></div>
+        <div
+          class="toppic"
+          style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.jpg)"
+        ></div>
+        <div
+          class="bottompic"
+          style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.png)"
+        ></div>
         <!-- <img
           class="bottompic"
           src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A2.png"
           width="100%"
-        /> -->
+        />-->
       </van-swipe-item>
       <van-swipe-item>
-        <img
-          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.jpg"
-          width="100%"
-        />
-        <div class="bottompic" style="background-image: url('https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.png')"></div>
-        <!-- <img
+        <div
+          class="toppic"
+          style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.jpg)"
+        ></div>
+        <div
           class="bottompic"
-          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.png"
-          width="100%"
-        /> -->
+          style="background-image: url('https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.png')"
+        >
+          <!-- <img
+            class="bottompic"
+            src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.png"
+            width="100%"
+          />-->
+        </div>
       </van-swipe-item>
     </van-swipe>
     <div class="qwnav custom-indicator" :class="{'show':showclass}">
@@ -57,9 +64,15 @@
         />
       </van-grid>
     </div>
-    <div class="bgpic" ></div>
-    <van-icon name="clear" class="close" @click="showBox=true, num=0" v-if="showBox===false" />
-    <iframe src="https://720yun.com/t/c4vkshp7r8b" frameborder="no" class="ifr" v-if="num===1"></iframe>
+    <div class="bgpic"></div>
+    <van-icon
+      name="clear"
+      class="close"
+      size="40"
+      @click="showBox=true, num=0"
+      v-if="showBox===false"
+    />
+    <!-- <iframe src="https://720yun.com/t/c4vkshp7r8b" frameborder="no" class="ifr" v-if="num===1"></iframe> -->
     <iframe src="https://720yun.com/t/devksb7hppl" frameborder="no" class="ifr" v-if="num===2"></iframe>
   </div>
 </template>
@@ -112,17 +125,24 @@ export default {
   background-color: #333;
   position: relative;
   overflow: hidden;
-  top:0;
+  top: 0;
   height: 88.6vh;
-  .van-swipe{
+  .van-swipe {
+    position: absolute;
+    left: 0;
+    right: 0;
     height: 100%;
-    // position: inherit;
-    // overflow: visible;
-    // overflow-x: hidden;
-    .van-swipe-item{
-      position: inherit;
-      height: 15.6rem;
-      overflow: visible;
+    overflow: visible;
+    z-index: 2;
+    .van-swipe-item {
+      .toppic {
+        display: inline-block;
+        background-size: cover;
+        background-position: bottom;
+        background-repeat: no-repeat;
+        width: 100% /* 750/16 */;
+        height: 16.8rem /* 500/16 */;
+      }
     }
   }
 }
@@ -176,26 +196,21 @@ export default {
   }
 }
 .bottompic {
-  position: absolute;
-  top: 66%;
-  left: 0;
-  right: 0;
-  // bottom: 0;
-  height: 100%;
-  z-index: 13;
-  // background-image: url('https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.png');
+  display: inline-block;
+  width: 100%;
+  height: 65%;
+  margin-top: -0.3rem;
   background-size: cover;
   background-position: bottom;
   background-repeat: no-repeat;
 }
-.bgpic{
-  z-index: 9;
+.bgpic {
   position: absolute;
-  top: 15.6rem;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/huxing.jpg');
+  width: 100%;
+  height: 65%;
+  top: 16.8rem;
+  z-index: 1;
+  background-image: url("https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/huxing.jpg");
   background-size: cover;
   background-position: bottom;
   background-repeat: no-repeat;
@@ -212,7 +227,7 @@ export default {
 .close {
   z-index: 100;
   position: absolute;
-  right: 1rem;
+  right: 2rem;
   top: 1rem;
   color: #fff;
 }

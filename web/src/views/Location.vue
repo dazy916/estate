@@ -1,41 +1,63 @@
 <template>
   <div class="location">
-    <van-swipe
-      ref="swiper"
-      vertical
-      style="position:absolute;top:20%;z-index:9;height:384px;width:100%"
-      :show-indicators="false"
-      @change="onChange"
-    >
+    <van-swipe ref="swiper" :loop="false" :show-indicators="false" @change="onChange">
       <van-swipe-item>
-        <div
+        <!-- <div
           class="showimg"
           style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/jt.png);"
-        ></div>
+        ></div>-->
+        <img
+          class="bottompic"
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/jt.png"
+          width="100%"
+        />
       </van-swipe-item>
       <van-swipe-item>
-        <div
+        <!-- <div
           class="showimg"
           style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/sz.png);"
-        ></div>
+        ></div>-->
+
+        <img
+          class="bottompic"
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/sz.png"
+          width="100%"
+        />
       </van-swipe-item>
       <van-swipe-item>
-        <div
+        <!-- <div
           class="showimg"
           style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/jy.png);"
-        ></div>
+        ></div>-->
+
+        <img
+          class="bottompic"
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/jy.png"
+          width="100%"
+        />
       </van-swipe-item>
       <van-swipe-item>
-        <div
+        <!-- <div
           class="showimg"
           style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/yl.png);"
-        ></div>
+        ></div>-->
+
+        <img
+          class="bottompic"
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/yl.png"
+          width="100%"
+        />
       </van-swipe-item>
       <van-swipe-item>
-        <div
+        <!-- <div
           class="showimg"
           style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/xx.png);"
-        ></div>
+        ></div>-->
+        <img
+          class="bottompic"
+          src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/xx.png"
+          width="100%"
+        />
       </van-swipe-item>
     </van-swipe>
     <div class="qwnav custom-indicator" :class="{'show':showclass}">
@@ -52,10 +74,13 @@
         />
       </van-grid>
     </div>
-    <div
-      class="bg"
-      style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/qw.png);"
-    ></div>
+    <div class="bg">
+      <img
+        class="bottompic"
+        src="https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/qw.png"
+        width="100%"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -110,11 +135,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .location {
-  // background-image: url(~@/assets/qw.png);
-  // background-size: 100% 384px;
-  // background-repeat: no-repeat;
-  // background-position: center;
-  background-color: #333;
+  .van-swipe {
+    top: 20%;
+    z-index: 9;
+  }
 }
 .qwnav {
   z-index: 10;
@@ -166,7 +190,7 @@ export default {
 }
 .showimg {
   width: 100%;
-  height: 384px;
+  height: 25rem /* 400/16 */;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -175,9 +199,9 @@ export default {
   position: absolute;
   top: 20%;
   left: 0;
-  z-index: 8;
+  z-index: 1;
   width: 100%;
-  height: 384px;
+  height: 25rem /* 400/16 */;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -83,6 +83,7 @@ export default {
   position: absolute;
   top: 2.6rem;
   bottom: 3rem;
+  background: #fffcf1;
 }
 .bg-black {
   padding: 0.3rem 0.8rem;

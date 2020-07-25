@@ -1,7 +1,7 @@
 <template>
   <div class="location">
     <van-swipe ref="swiper" :loop="false" :show-indicators="false" @change="onChange">
-      <van-swipe-item>
+      <van-swipe-item @click="num=1, showBox=false">
         <div
           class="toppic"
           style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/A1.jpg)"
@@ -33,7 +33,7 @@
           width="100%"
         />-->
       </van-swipe-item>
-      <van-swipe-item>
+      <van-swipe-item @click="num=3, showBox=false">
         <div
           class="toppic"
           style="background-image: url(https://cqenjoytest.oss-cn-shenzhen.aliyuncs.com/xytd/C1.jpg)"
@@ -72,8 +72,9 @@
       @click="showBox=true, num=0"
       v-if="showBox===false"
     />
-    <!-- <iframe src="https://720yun.com/t/c4vkshp7r8b" frameborder="no" class="ifr" v-if="num===1"></iframe> -->
+    <iframe src="https://720yun.com/t/7dvkOl1wO27" frameborder="no" class="ifr" v-if="num===1"></iframe>
     <iframe src="https://720yun.com/t/devksb7hppl" frameborder="no" class="ifr" v-if="num===2"></iframe>
+    <iframe src="https://720yun.com/t/01vkOe8h719" frameborder="no" class="ifr" v-if="num===3"></iframe>
   </div>
 </template>
 <script>
